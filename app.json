@@ -1,6 +1,6 @@
 {
-    "name": "letterboxd-list-radarr",
-    "description": "Connect radarr to letterboxd.com lists",
+    "name": "mal-list-sonarr",
+    "description": "Connect sonarr to myanimelist.net lists",
     "addons": [
         {
             "plan": "heroku-redis:hobby-dev",

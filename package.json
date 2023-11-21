@@ -1,11 +1,15 @@
 {
-    "name": "letterboxd-list-radarr",
-    "version": "1.1.0",
-    "description": "Convert Letterboxd-list to consumable data",
+    "name": "mal-list-sonarr",
+    "version": "0.1.0",
+    "description": "Convert MyAnimeList plan to watch to consumable data",
     "main": "index.js",
-    "author": "Sebastian Langer <sl@scn.cx>",
-    "homepage": "https://github.com/screeny05/letterboxd-list-radarr",
+    "author": "Diego Fleitas",
+    "homepage": "https://github.com/DiegoFleitas/mal-list-sonarr",
     "license": "MIT",
+    "credits": {
+        "originalAuthor": "Sebastian Langer",
+        "originalRepository": "https://github.com/screeny05/letterboxd-list-radarr"
+    },
     "scripts": {
         "start": "node dist/index.js",
         "dev": "LOG_LEVEL=debug node --inspect=5858 -r ts-node/register/transpile-only index.ts",

@@ -1,61 +1,29 @@
-# letterboxd-list-radarr
+# mal-list-sonarr
 
-Connect radarr to letterboxd.com lists
+This is a fork of screeny05/letterboxd-list-radarr
+
+Connect sonarr to myanimelist.net plan to watch anime lists
 
 ## Usage
 
 This service is hosted on render. That way you don't have to run the service yourself (but you can, see below).
 
-### Radarr v3 and up
+### Sonarr v3 and up
 
-1. Configure a new list in radarr, using the _Custom Lists_ provider.
-2. Set _List URL_ to `https://letterboxd-list-radarr.onrender.com` followed by the path to your list in letterboxd. For example: `https://letterboxd-list-radarr.onrender.com/screeny05/list/jackie-chan-the-definitive-list/`
+1. Configure a new list in sonarr, using the _Custom Lists_ provider.
+2. Set _List URL_ to `https://mal-list-sonarr.onrender.com` followed by the path to your list in letterboxd. For example: `https://mal-list-sonarr.onrender.com/DiegoFleitas/list/jackie-chan-the-definitive-list/`
 3. Configure the rest of the settings to your liking
 4. Test & Save.
 
 If there are any problems with v3, feel free to open an issue.
 
-### Radarr v2
-
-1. Configure a new list in radarr, using the _Radarr Lists_ provider.
-2. Set _Radarr API URL_ to `https://letterboxd-list-radarr.onrender.com` (or your custom one, if you choose self-hosting)
-3. Set _Path to list_ to whatever appears in the URL for the list of your choosing after `letterboxd.com`.
-
 ### Supported Lists:
 
--   Watchilsts: https://letterboxd.com<b>/screeny05/watchlist/</b>
--   Regular Lists: https://letterboxd.com<b>/screeny05/list/jackie-chan-the-definitive-list/</b>
--   Watched Movies: https://letterboxd.com<b>/screeny05/films/</b>
--   Filmography:
-    -   Actor: https://letterboxd.com<b>/actor/tom-hanks/</b>
-    -   Director: https://letterboxd.com<b>/director/alfred-hitchcock/</b>
-    -   Writer: https://letterboxd.com<b>/writer/charlie-kaufman/</b>
-    -   Etc.
--   Collections: https://letterboxd.com<b>/films/in/halloween-collection/</b>
--   Popular Movies: https://letterboxd.com<b>/films/popular/</b>
-    -   Note that neither filtering nor sorting is allowed according to the robots.txt. So URLs like /films/popular/genre/action, /films/popular/decade/2020s /films/by/release, etc. are not supported
-    -   This list is limited to 10 pages, so a maximum of 720 movies are returned. You can limit this number with the `limit`-option
--   Lists tagged by User are not supported. Please use links to the lists themself instead.
+-   Plan to watch: https://myanimelist.net<b>/animelist/<user>?status=6</b>
 
 Others may be supported, but are not tested, yet.
 
-### Supported options
-
-This is a list of all options you can provide to this scraper, You can set them by attaching a get-parameter to the URL like this:
-
-`/actor/tom-hanks/?<key>=<value>`
-
-Where `key` is the name of the option and `value` is the value you want to provide.
-
-The following options are currently supported:
-
--   `limit` - Return only a maximum number of movies. This is useful for very large lists like /films/popular/
-
 ## FAQ
-
-### The API always returns `Disallowed URL according to robots.txt`
-
-This means that letterboxd.com does not allow this URL to be crawled per their [robots.txt](https://letterboxd.com/robots.txt). Your URL probably contains sorting or expensive queries by letterboxd. Check the linked file to ensure your given URL does not match any of the listed paths.
 
 ## Self-hosting
 
@@ -67,21 +35,11 @@ It might take a few minutes after deploying to render, before the instance becom
 
 Be aware that render currently has a [free limit](https://render.com/docs/free) of 750h/month. That's exactly enough to run this single service for the whole month.
 
-### Using heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-If you are planning on running this instance for a lot of movies, be sure to set the correct cache-eviction policy for the redis:
-
-```
-heroku redis:maxmemory <name-of-redis-instance> --policy allkeys-lfu
-```
-
 ### Using docker
 
 #### Pre-built docker-image
 
-You will get the newest image by pulling `screeny05/letterboxd-list-radarr:latest`. The image is available for both x86-64 and arm64.
+You will get the newest image by pulling `DiegoFleitas/mal-list-sonarr:latest`. The image is available for both x86-64 and arm64.
 
 Here is an example of how to use the image with docker-compose:
 
@@ -89,7 +47,7 @@ Here is an example of how to use the image with docker-compose:
 version: "3.8"
 services:
     web:
-        image: screeny05/letterboxd-list-radarr:latest
+        image: DiegoFleitas/mal-list-sonarr:latest
         ports:
             - 5000:5000
         environment:
@@ -105,8 +63,8 @@ For optimal configuration of redis, please check out the [redis.conf](redis.conf
 #### Building it yourself
 
 ```
-git clone git@github.com:screeny05/letterboxd-list-radarr.git
-cd letterboxd-list-radarr
+git clone git@github.com:DiegoFleitas/mal-list-sonarr.git
+cd mal-list-sonarr
 npm install
 docker-compose up -d
 ```
