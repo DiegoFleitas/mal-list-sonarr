@@ -1,8 +1,4 @@
-// import { executeKanpai, KanpaiExecutable, KanpaiContext } from 'kanpai-scraper';
-import get from "../axios";
-
 export const MAL_ORIGIN = "https://myanimelist.net";
-export const MAL_NEXT_PAGE_REGEX = /\/page\/(\d+)/;
 
 export const getFirstMatch =
     (regex: RegExp) =>
@@ -16,17 +12,6 @@ export const getFirstMatch =
         }
         return match[1];
     };
-
-// // export const getKanpai = async <T = any>(
-//     url: string,
-//     executable: KanpaiExecutable
-// ) => {
-//     const data = await get(url);
-//     const context = new KanpaiContext(data);
-//     return executeKanpai<T>(context, executable, {
-//         strict: false,
-//     });
-// };
 
 /**
  * Ensures slug starts and ends with a single slash.
