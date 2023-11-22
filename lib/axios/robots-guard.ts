@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import robotsParser from "robots-parser";
-import { LETTERBOXD_ORIGIN } from "../letterboxd/util";
+import { MAL_ORIGIN } from "../myanimelist/util";
 import { userAgentString } from "./user-agent";
 
 export class RobotsGuard {
@@ -15,7 +15,7 @@ export class RobotsGuard {
     }
 
     async load(): Promise<void> {
-        const robotsTxtUrl = `${LETTERBOXD_ORIGIN}/robots.txt`;
+        const robotsTxtUrl = `${MAL_ORIGIN}/robots.txt`;
         const robotsReq = await this.axiosInstance.get(robotsTxtUrl);
         this.parsed = robotsParser(robotsTxtUrl, robotsReq.data);
         this.isLoaded = true;

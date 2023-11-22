@@ -21,7 +21,7 @@ export const get = <T = any>(key: string): Promise<T> =>
             if (err) {
                 return reject(err);
             }
-            resolve(JSON.parse(data));
+            resolve(JSON.parse(data as string));
         });
     });
 

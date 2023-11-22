@@ -1,13 +1,10 @@
-import { LetterboxdPoster } from "./lib/letterboxd/list";
+import { MyAnimeListEntry, AnimeListMini } from "./lib/myanimelist/types";
 import express from "express";
-import { normalizeSlug } from "./lib/letterboxd/util";
-import { transformLetterboxdMovieToRadarr } from "./lib/radarr/transform";
-import {
-    getMoviesDetailCached,
-    LetterboxdMovieDetails,
-} from "./lib/letterboxd/movie-details";
+import { normalizeSlug } from "./lib/myanimelist/util";
+import { transformMyAnimeListShowToSonarr } from "./lib/sonarr/transform";
+import { getAnimesDetailCached } from "./lib/myanimelist/anime-details";
 import { sendChunkedJson } from "./lib/express/send-chunked-json";
-import { fetchPostersFromSlug } from "./lib/letterboxd";
+import { fetchEntriesFromSlug } from "./lib/myanimelist";
 import { logger } from "./lib/logger";
 
 const appLogger = logger.child({ module: "App" });
@@ -21,7 +18,7 @@ const server = app.listen(PORT, () =>
 
 server.keepAliveTimeout = 78;
 
-app.get("/", (_, res) => res.send("Use letterboxd.com path as path here."));
+app.get("/", (_, res) => res.send("Use myanimelist.net path as path here."));
 
 app.get("/favicon.ico", (_, res) => res.status(404).send());
 
@@ -40,44 +37,37 @@ app.get(/(.*)/, async (req, res) => {
 
     const slug = normalizeSlug(req.params[0]);
     const limit = req.query.limit
-        ? Number.parseInt(req.query.limit)
+        ? Number.parseInt(req.query.limit as string)
         : undefined;
 
-    let posters: LetterboxdPoster[];
+    let entries: MyAnimeListEntry[];
 
     try {
-        appLogger.info(`Fetching posters for ${slug}`);
-        posters = await fetchPostersFromSlug(slug);
-        if (!Array.isArray(posters)) {
-            throw new Error(`Fetching posters failed for ${slug}`);
+        appLogger.info(`Fetching entries for ${slug}`);
+        entries = await fetchEntriesFromSlug(slug);
+        if (!Array.isArray(entries)) {
+            throw new Error(`Fetching entries failed for ${slug}`);
         }
         if (limit) {
-            posters = posters.slice(0, limit);
+            entries = entries.slice(0, limit);
         }
     } catch (e: any) {
         isFinished = true;
-        appLogger.error(`Failed to fetch posters for ${slug} - ${e.message}`);
+        appLogger.error(`Failed to fetch entries for ${slug} - ${e.message}`);
         chunk.fail(404, e.message);
         return;
     }
 
-    const movieSlugs = posters.map((poster) => poster.slug);
-
-    const onMovie = (movie: LetterboxdMovieDetails) => {
-        // If there's no tmdb-id it may be a tv-show
-        // radarr throws an error, if an entry is missing an id
-        if (!movie.tmdb) {
+    const onAnime = (anime: MyAnimeListEntry, mapping: AnimeListMini) => {
+        // If there's no tvdb_id it may be a movie
+        // sonarr throws an error, if an entry is missing an id
+        if (!mapping.thetvdb_id) {
             return;
         }
-        chunk.push(transformLetterboxdMovieToRadarr(movie));
+        chunk.push(transformMyAnimeListShowToSonarr(anime, mapping));
     };
 
-    await getMoviesDetailCached(
-        movieSlugs,
-        7,
-        onMovie,
-        () => !isConnectionOpen
-    );
+    await getAnimesDetailCached(entries, 7, onAnime, () => !isConnectionOpen);
 
     isFinished = true;
     chunk.end();

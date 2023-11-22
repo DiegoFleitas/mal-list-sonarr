@@ -1,6 +1,6 @@
 # mal-list-sonarr
 
-This is a fork of screeny05/letterboxd-list-radarr
+This is a fork of screeny05/letterboxd-list-radarr.
 
 Connect sonarr to myanimelist.net plan to watch anime lists
 
@@ -11,7 +11,7 @@ This service is hosted on render. That way you don't have to run the service you
 ### Sonarr v3 and up
 
 1. Configure a new list in sonarr, using the _Custom Lists_ provider.
-2. Set _List URL_ to `https://mal-list-sonarr.onrender.com` followed by the path to your list in letterboxd. For example: `https://mal-list-sonarr.onrender.com/DiegoFleitas/list/jackie-chan-the-definitive-list/`
+2. Set _List URL_ to `https://mal-list-sonarr.onrender.com` followed by the path to your list in letterboxd. For example: `https://mal-list-sonarr.onrender.com/animelist/bonafideterran/`
 3. Configure the rest of the settings to your liking
 4. Test & Save.
 
@@ -19,7 +19,9 @@ If there are any problems with v3, feel free to open an issue.
 
 ### Supported Lists:
 
--   Plan to watch: https://myanimelist.net<b>/animelist/<user>?status=6</b>
+-   Plan to watch: https://myanimelist.net<b>/animelist/<username></b>
+
+ex:
 
 Others may be supported, but are not tested, yet.
 
