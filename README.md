@@ -13,7 +13,7 @@ This service is hosted on render. That way you don't have to run the service you
 Note Sonarr v3 and lower doens't support Custom lists
 
 1. Configure a new list in sonarr, using the _Custom Lists_ provider.
-2. Set _List URL_ to `https://mal-list-sonarr.onrender.com` followed by the path to your list in letterboxd. For example: `https://mal-list-sonarr.onrender.com/animelist/bonafideterran/`
+2. Set _List URL_ to `https://service-web-hinq.onrender.com` followed by the path to your list in letterboxd. For example: `https://service-web-hinq.onrender.com/animelist/bonafideterran/`
 3. Configure the rest of the settings to your liking
 4. Test & Save.
 
