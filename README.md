@@ -8,7 +8,9 @@ Connect sonarr to myanimelist.net plan to watch anime lists
 
 This service is hosted on render. That way you don't have to run the service yourself (but you can, see below).
 
-### Sonarr v3 and up
+### Sonarr v4 and up
+
+Note Sonarr v3 and lower doens't support Custom lists
 
 1. Configure a new list in sonarr, using the _Custom Lists_ provider.
 2. Set _List URL_ to `https://mal-list-sonarr.onrender.com` followed by the path to your list in letterboxd. For example: `https://mal-list-sonarr.onrender.com/animelist/bonafideterran/`
