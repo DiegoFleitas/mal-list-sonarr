@@ -1,9 +1,4 @@
-import {
-    // getKanpai,
-    // getFirstMatch,
-    MAL_ORIGIN,
-    // MAL_NEXT_PAGE_REGEX,
-} from "./util";
+import { MAL_ORIGIN } from "./util";
 import axios from "axios";
 import * as cache from "../cache/index";
 import { MyAnimeListEntry } from "./types";

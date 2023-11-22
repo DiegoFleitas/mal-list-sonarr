@@ -1,5 +1,4 @@
 import pLimit from "p-limit";
-// import { getKanpai, getFirstMatch, MAL_ORIGIN } from "./util";
 import * as cache from "../cache/index";
 import { logger } from "../logger";
 import { AnimeListMini, MyAnimeListEntry } from "./types";
